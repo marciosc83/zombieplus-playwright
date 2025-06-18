@@ -1,2 +1,0 @@
-# zombieplus-playwright
-Playwright training
