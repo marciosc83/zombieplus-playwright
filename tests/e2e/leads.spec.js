@@ -10,10 +10,10 @@ test('Should insert a new lead with valid data', async ({ page }) => {
   const email = faker.internet.email()
 
   // visit
-  await page.landingPage.visit()
+  await page.leads.visit()
 
   // openLeadModal
-  await page.landingPage.openLeadModal()
+  await page.leads.openLeadModal()
   //await page.getByRole('button', {name: 'Aperte o play... se tiver coragem'}).click()
   //await page.locator('xpath=//button[text()="Aperte o play... se tiver coragem"]').click()
   //await page.click('xpath=//button[text()="Aperte o play... se tiver coragem"]')
@@ -30,7 +30,7 @@ test('Should insert a new lead with valid data', async ({ page }) => {
   //await expect(page.getByTestId('modal').getByRole('paragraph', {name: formText})).toBeVisible()
 
   // submit
-  await page.landingPage.submit(name, email)
+  await page.leads.submit(name, email)
   // Enter user name
   //await page.locator('input[name=name]').fill(name)
   //await page.locator('input[id=name]').fill(name)
@@ -51,14 +51,14 @@ test('Should insert a new lead with valid data', async ({ page }) => {
   //await page.locator('//button[text()="Quero entrar na fila!"]').click()
   //await page.click('//button[text()="Quero entrar na fila!"]')
 
-  // toastHaveText
-  const message = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!'
-  await page.toast.haveText(message)
+  // popupHaveText
+  const message = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato.'
+  await page.popup.haveText(message)
   //await page.waitForTimeout(5000)
   //const message = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!'
-  //await expect(page.locator('.toast')).toHaveText(message)
-  //await expect(page.locator('.toast').getByText(message)).toBeVisible()
-  //await expect(page.locator('.toast')).toBeHidden({timeout: 5000})
+  //await expect(page.locator('.swal2-html-container')).toHaveText(message)
+  //await expect(page.locator('.swal2-html-container').getByText(message)).toBeVisible()
+  //await expect(page.locator('.swal2-html-container')).toBeHidden({timeout: 5000})
 
   console.log('TEST EXECUTED: Should insert a new lead with valid data')
 })
@@ -71,9 +71,9 @@ test('Should not insert a new lead with a blank user name', async ({ page }) => 
   const name = ''
   const email = faker.internet.email()
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
 
   const message = 'Campo obrigatório'
   await page.alert.haveText(message)
@@ -89,9 +89,9 @@ test('Should not insert a new lead with a blank email', async ({ page }) => {
   const name = faker.person.fullName()
   const email = ''
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
 
   const message = 'Campo obrigatório'
   await page.alert.haveText(message)
@@ -107,9 +107,9 @@ test('Should not insert a new lead with a blank user name and a blank email', as
   const name = ''
   const email = ''
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
 
   const message = ['Campo obrigatório', 'Campo obrigatório']
   await page.alert.haveText(message)
@@ -126,9 +126,9 @@ test('Should not insert a new lead with an invalid e-mail', async ({ page }) => 
   let email = faker.internet.email()
   email = email.replace('@', '.')
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
 
   const message = 'Email incorreto'
   await page.alert.haveText(message)
@@ -151,17 +151,19 @@ test('Should not insert a new lead with an existing user name and email', async 
     }
   })
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  expect(newLead.ok()).toBeTruthy()
 
-  await page.landingPage.visit()
-  await page.landingPage.openLeadModal()
-  await page.landingPage.submit(name, email)
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
+  
+  await page.leads.visit()
+  await page.leads.openLeadModal()
+  await page.leads.submit(name, email)
 
-  const message = 'O endereço de e-mail fornecido já está registrado em nossa fila de espera.'
-  await page.toast.haveText(message)
-
+  const message = 'Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera. Isso significa que você está um passo mais perto de aproveitar nossos serviços.'
+  await page.popup.haveText(message)
+  
   console.log('TEST EXECUTED: Should not insert a new lead with an existing user name and email')
 })
 

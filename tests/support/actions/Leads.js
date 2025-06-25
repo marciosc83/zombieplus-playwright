@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test')
 
-export class LandingPage {
+export class Leads {
     
     constructor(page) {
         this.page = page
@@ -22,5 +22,9 @@ export class LandingPage {
         await this.page.locator('input[name=name]').fill(name)
         await this.page.locator('input[name=email]').fill(email)
         await this.page.getByTestId('modal').getByText('Quero entrar na fila!').click()
+    }
+
+    async isLoggedIn(username) {
+        await expect(this.page.locator('.logged-user')).toHaveText(`Olá, ${username}`)
     }
 }

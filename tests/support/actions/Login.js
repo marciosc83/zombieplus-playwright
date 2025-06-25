@@ -1,11 +1,17 @@
 const { expect } = require('@playwright/test')
 
-export class LoginPage {
+export class Login {
 
     constructor(page) {
         this.page = page
     }
 
+    async do(email, password, username) {
+        await this.page.login.visit()
+        await this.page.login.submit(email, password)
+        await this.page.leads.isLoggedIn(username)
+    }
+    
     async visit() {
         await this.page.goto('http://localhost:3000/admin/login')
         const loginForm = this.page.locator('.login-form')

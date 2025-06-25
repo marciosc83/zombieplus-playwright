@@ -1,9 +1,13 @@
-const { test } = require('../support')
-const { LoginPage } = require('../pages/LoginPage')
-const { MoviesPage } = require('../pages/MoviesPage')
-const { Toast } = require('../pages/Components')
+const { test, expect } = require('../support')
 const data = require('../support/fixtures/movies.json')
 const { executeSQL } = require('../support/database')
+
+async function submitMovie(page, movie) {
+    await page.movies.submit(movie)}
+
+test.beforeAll(async () => {
+    await executeSQL('DELETE FROM movies')
+})
 
 /**
  * Roadmap > Gestão de Filmes > Cadastro de filme válido
@@ -11,68 +15,87 @@ const { executeSQL } = require('../support/database')
 test('Should insert a new movie with valid data', async ({ page }) => {
     const email = 'admin@zombieplus.com'
     const password = 'pwd123'
-    const sql = "UPDATE movies SET cover = 'saw_1.jpg' WHERE title = 'Jogos Mortais'; UPDATE movies SET cover = 'devils_advocate.png' WHERE title = 'Advogado do Diabo'; UPDATE movies SET cover = 'a-volta-dos-mortos-vivos.jpg' WHERE title = 'A Volta dos Mortos Vivos'; UPDATE movies SET cover = 'dead_snow.jpg' WHERE title = 'Dead Snow'; UPDATE movies SET cover = 'meu_namorado_e_um_zumbi.jpg' WHERE title = 'Meu Namorado é um Zumbi'; UPDATE movies SET cover = 'orgulho.jpg' WHERE title = 'Orgulho e Preconceito e Zumbis'; UPDATE movies SET cover = 'guerra_mundial_z.jpg' WHERE title = 'Guerra Mundial Z'; UPDATE movies SET cover = 'hospedeiro.jpg' WHERE title = 'Resident Evil: O Hospedeiro'; UPDATE movies SET cover = 'night.jpg' WHERE title = 'A Noite dos Mortos-Vivos'; UPDATE movies SET cover = 'madrugada.webp' WHERE title = 'Madrugada dos Mortos'; UPDATE movies SET cover = 'zombieland.jpg' WHERE title = 'Zumbilândia'; UPDATE movies SET cover = 'exterminio.jpg' WHERE title = 'Extermínio'; UPDATE movies SET cover = 'scream.jpg' WHERE title = 'Pânico';"
-    
-    await executeSQL('DELETE FROM movies')
+    const username = 'Admin'
 
-    await page.loginPage.visit()
-    await page.loginPage.submit(email, password)
-    await page.moviesPage.isLoggedIn()
-
-    const movies = [data.create, data.resident_evil_o_hospedeiro, data.a_noite_dos_mortos_vivos,
-    data.exterminio, data.madrugada_dos_mortos, data.zumbilandia, data.orgulho_e_preconceito_e_zumbis,
-    data.meu_namorado_e_um_zumbi, data.dead_snow, data.a_volta_dos_mortos_vivos]
-
-    /**movies.forEach(async movie => {        
-        await page.moviesPage.submit(movie.title, movie.overview, movie.company, movie.release_year,
-            movie.featured, movie.cover)
-        console.log('Registering the movie: ' + movie.title + ' (' + movie.release_year + ') released by ' +
-            movie.company)
-    });**/
-    
-    async function submitMovie(movie) {
-        await page.moviesPage.submit(movie.title, movie.overview, movie.company, movie.release_year,
-            movie.featured, movie.cover)
-        console.log('Registering the movie: ' + movie.title + ' (' + movie.release_year + ') released by ' + movie.company)    
-    }
+    await page.login.do(email, password, username)
 
     let movie = data.create
-    await submitMovie(movie)
-    
-    movie = data.resident_evil_o_hospedeiro
-    await submitMovie(movie)
-    
-    movie = data.a_noite_dos_mortos_vivos
-    await submitMovie(movie)
-    
-    movie = data.exterminio
-    await submitMovie(movie)
-    
-    movie = data.madrugada_dos_mortos
-    await submitMovie(movie)
-    
-    movie = data.zumbilandia
-    await submitMovie(movie)
-    
-    movie = data.orgulho_e_preconceito_e_zumbis
-    await submitMovie(movie)
-    
-    movie = data.meu_namorado_e_um_zumbi
-    await submitMovie(movie)
-    
-    movie = data.dead_snow
-    await submitMovie(movie)
-    
-    movie = data.a_volta_dos_mortos_vivos
-    await submitMovie(movie)
-    
-    movie = data.devils_advocate
-    await submitMovie(movie)
-    
-    movie = data.saw
-    await submitMovie(movie)
+    await submitMovie(page, movie)
+    await page.popup.haveText(`O filme \'${movie.title}\' foi adicionado ao catálogo.`)
+})
 
-    await executeSQL(sql)
+/**
+ * Roadmap > Gestão de Filmes > Cadastro de filme com dados duplicados
+ */
+test('Should not insert a new movie with duplicate title', async ({ page, request }) => {
+    const movie = data.duplicate
+
+    await request.api.postMovie(movie)
+
+    const email = 'admin@zombieplus.com'
+    const password = 'pwd123'
+    const username = 'Admin'
+
+    await page.login.do(email, password, username)
+    await submitMovie(page, movie)
+    await page.popup.haveText(`O título \'${movie.title}\' já consta em nosso catálogo. Por favor, verifique se há necessidade de atualizações ou correções para este item.`)
 
     console.log('TEST EXECUTED: Should insert a new movie with valid data')
+})
+
+/**
+ * Roadmap > Gestão de Filmes > Cadastro de filme com campos em branco
+ */
+test('Should not insert a new movie with blank mandatory data', async ({ page }) => {
+    const email = 'admin@zombieplus.com'
+    const password = 'pwd123'
+    const username = 'Admin'
+
+    await page.login.do(email, password, username)
+    await page.movies.goToForm()
+    await page.movies.submitForm()
+
+    const message = [
+        'Campo obrigatório',
+        'Campo obrigatório',
+        'Campo obrigatório',
+        'Campo obrigatório']
+    await page.alert.haveText(message)
+
+    console.log('TEST EXECUTED: Should not insert a new movie with blank mandatory data')
+})
+
+/**
+ * Roadmap > Gestão de Filmes > Busca de filmes
+ */
+test('Should search for an existing movie  by the name', async ({ page, request }) => {
+    const movies = data.search
+
+    movies.data.forEach(async (movie) => {
+        await request.api.postMovie(movie)
+    })
+
+    const email = 'admin@zombieplus.com'
+    const password = 'pwd123'
+    const username = 'Admin'
+
+    await page.login.do(email, password, username)
+    await page.movies.search(movies.input)
+    await page.movies.tableHave(movies.outputs)
+})
+
+/**
+ * Roadmap > Gestão de Filmes > Exclusão de filme
+ */
+test('Should delete an existing movie', async ({ page, request }) => {
+    const movie = data.delete
+    await request.api.postMovie(movie)
+
+    const email = 'admin@zombieplus.com'
+    const password = 'pwd123'
+    const username = 'Admin'
+    await page.login.do(email, password, username)
+    await page.movies.remove(movie.title)
+
+    await page.popup.haveText('Filme removido com sucesso.')
 })

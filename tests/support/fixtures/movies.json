@@ -5,102 +5,56 @@
     "company": "Paramount Pictures",
     "release_year": 2013,
     "featured": true,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/guerra_mundial_z.png"
+    "cover": "/covers/movies/wwz.png"
   },
-  "resident_evil_o_hospedeiro": {
+  "duplicate": {
     "title": "Resident Evil: O Hospedeiro",
     "overview": "Alice se junta a sobreviventes para enfrentar a Corporação Umbrella e os zumbis mutantes criados por ela.",
     "company": "Universal Pictures",
     "release_year": 2002,
     "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/resident_evil_o_hospedeiro.png"
+    "cover": "/covers/movies/resident-evil.jpg"
   },
-  "a_noite_dos_mortos_vivos": {
+  "delete": {
     "title": "A Noite dos Mortos-Vivos",
     "overview": "Um grupo de pessoas fica preso em uma casa enquanto zumbis canibais famintos cercam o local.",
     "company": "Paramount Pictures",
     "release_year": 1970,
     "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/a_noite_dos_mortos_vivos.png"
+    "cover": "/covers/movies/mortos-vivos.jpg"
   },
-  "exterminio": {
-    "title": "Extermínio",
-    "overview": "Um vírus transforma as pessoas em raivosos assassinos. Um grupo tenta sobreviver na desolada Londres.",
-    "company": "Sony Pictures",
-    "release_year": 2002,
-    "featured": true,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/exterminio.png"
-  },
-  "madrugada_dos_mortos": {
-    "title": "Madrugada dos Mortos",
-    "overview": "Um grupo de sobreviventes busca abrigo em um shopping enquanto uma horda de zumbis toma conta da cidade.",
-    "company": "Universal Pictures",
-    "release_year": 2004,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/madrugada_dos_mortos.png"
-  },
-  "zumbilandia": {
-    "title": "Zumbilândia",
-    "overview": "Um grupo improvável de sobreviventes navega por um mundo cheio de zumbis, tentando encontrar um lugar seguro.",
-    "company": "Universal Pictures",
-    "release_year": 2009,
-    "featured": true,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/zumbilandia.png"
-  },
-  "orgulho_e_preconceito_e_zumbis": {
-    "title": "Orgulho e Preconceito e Zumbis",
-    "overview": "Elizabeth Bennet e Sr. Darcy unem forças para combater uma praga de zumbis que assola a Inglaterra.",
-    "company": "Sony Pictures",
-    "release_year": 2016,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/orgulho_e_preconceito_e_zumbis.png"
-  },
-  "meu_namorado_e_um_zumbi": {
-    "title": "Meu Namorado é um Zumbi",
-    "overview": "Em um mundo pós-apocalíptico, uma jovem se apaixona por um zumbi que ainda preserva algumas características humanas.",
-    "company": "Sony Pictures",
-    "release_year": 2013,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/meu_namorado_e_um_zumbi.png"
-  },
-  "dead_snow": {
-    "title": "Dead Snow",
-    "overview": "Um grupo de amigos enfrenta zumbis nazistas que ressurgem para aterrorizar uma vila remota.",
-    "company": "Universal Pictures",
-    "release_year": 2009,
-    "featured": true,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/dead_snow.png"
-  },
-  "a_volta_dos_mortos_vivos": {
-    "title": "A Volta dos Mortos Vivos",
-    "overview": "Um gás tóxico transforma os mortos em zumbis famintos. Um grupo luta para sobreviver em uma cidade sitiada.",
-    "company": "Sony Pictures",
-    "release_year": 1985,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/a-volta-dos-mortos-vivos.jpg"
-  },
-  "devils_advocate": {
-    "title": "Advogado do Diabo",
-    "overview": "Um advogado da Flórida excepcionalmente qualificado é oferecido um trabalho em um escritório de advocacia de alto nível em Nova York com um gerente sênior, sendo a maior oportunidade de carreira até o momento.",
-    "company": "Universal Pictures",
-    "release_year": 1997,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/devils_advocate.png"
-  },
-  "saw": {
-    "title": "Jogos Mortais",
-    "overview": "Dois homens acordam acorrentados em um banheiro como prisioneiros de um assassino em série que leva suas vítimas a situações limítrofes em um jogo macabro. Para sobreviver, eles terão de desvendar juntos as peças desse quebra-cabeças.",
-    "company": "Lionsgate Films",
-    "release_year": 2004,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/saw_1.jpg"
-  },
-  "scream": {
-    "title": "Pânico",
-    "overview": "A masked killer targets a past victim's daughter.",
-    "company": "Lionsgate Films",
-    "release_year": 1996,
-    "featured": false,
-    "cover": "C:/Users/marci/workspace/QAx/apps/zombieplus/api/uploads/scream.jpg"
+  "search": {
+    "input": "zumbi",
+    "outputs": [
+      "Zumbilândia",
+      "Orgulho e Preconceito e Zumbis",
+      "Meu Namorado é um Zumbi"
+    ],
+    "data": [
+      {
+        "title": "Zumbilândia",
+        "overview": "Um grupo improvável de sobreviventes navega por um mundo cheio de zumbis, tentando encontrar um lugar seguro.",
+        "company": "Universal Pictures",
+        "release_year": 2009,
+        "featured": false,
+        "cover": "/covers/movies/zumbilandia.jpg"
+      },
+      {
+        "title": "Orgulho e Preconceito e Zumbis",
+        "overview": "Elizabeth Bennet e Sr. Darcy unem forças para combater uma praga de zumbis que assola a Inglaterra.",
+        "company": "Sony Pictures",
+        "release_year": 2016,
+        "featured": false,
+        "cover": "/covers/movies/opz.jpg"
+      },
+      {
+        "title": "Meu Namorado é um Zumbi",
+        "overview": "Em um mundo pós-apocalíptico, uma jovem se apaixona por um zumbi que ainda preserva algumas características humanas.",
+        "company": "Sony Pictures",
+        "release_year": 2013,
+        "featured": false,
+        "cover": "/covers/movies/warm-bodies.jpg"
+      }
+    ]
   }
 }
