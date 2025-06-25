@@ -59,8 +59,6 @@ test('Should insert a new lead with valid data', async ({ page }) => {
   //await expect(page.locator('.swal2-html-container')).toHaveText(message)
   //await expect(page.locator('.swal2-html-container').getByText(message)).toBeVisible()
   //await expect(page.locator('.swal2-html-container')).toBeHidden({timeout: 5000})
-
-  console.log('TEST EXECUTED: Should insert a new lead with valid data')
 })
 
 /**
@@ -77,8 +75,6 @@ test('Should not insert a new lead with a blank user name', async ({ page }) => 
 
   const message = 'Campo obrigatório'
   await page.alert.haveText(message)
-
-  console.log('TEST EXECUTED: Should not insert a new lead with a blank user name')
 })
 
 /**
@@ -95,8 +91,6 @@ test('Should not insert a new lead with a blank email', async ({ page }) => {
 
   const message = 'Campo obrigatório'
   await page.alert.haveText(message)
-
-  console.log('TEST EXECUTED: Should not insert a new lead with a blank email')
 })
 
 /**
@@ -113,8 +107,6 @@ test('Should not insert a new lead with a blank user name and a blank email', as
 
   const message = ['Campo obrigatório', 'Campo obrigatório']
   await page.alert.haveText(message)
-
-  console.log('TEST EXECUTED: Should not insert a new lead with a blank user name and a blank email')
 })
 
 /**
@@ -132,8 +124,6 @@ test('Should not insert a new lead with an invalid e-mail', async ({ page }) => 
 
   const message = 'Email incorreto'
   await page.alert.haveText(message)
-
-  console.log('TEST EXECUTED: Should not insert a new lead with an invalid e-mail')
 })
 
 /**
@@ -163,7 +153,5 @@ test('Should not insert a new lead with an existing user name and email', async 
 
   const message = 'Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera. Isso significa que você está um passo mais perto de aproveitar nossos serviços.'
   await page.popup.haveText(message)
-  
-  console.log('TEST EXECUTED: Should not insert a new lead with an existing user name and email')
 })
 

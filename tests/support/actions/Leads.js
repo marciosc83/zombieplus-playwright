@@ -7,7 +7,7 @@ export class Leads {
     }
 
     async visit() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000/')
         await expect(this.page).toHaveTitle(/Zombie+ | Mais que um/)
     }
 

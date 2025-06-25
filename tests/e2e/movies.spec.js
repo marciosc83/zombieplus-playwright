@@ -2,9 +2,6 @@ const { test, expect } = require('../support')
 const data = require('../support/fixtures/movies.json')
 const { executeSQL } = require('../support/database')
 
-async function submitMovie(page, movie) {
-    await page.movies.submit(movie)}
-
 test.beforeAll(async () => {
     await executeSQL('DELETE FROM movies')
 })
@@ -20,7 +17,7 @@ test('Should insert a new movie with valid data', async ({ page }) => {
     await page.login.do(email, password, username)
 
     let movie = data.create
-    await submitMovie(page, movie)
+    await page.movies.submit(movie)
     await page.popup.haveText(`O filme \'${movie.title}\' foi adicionado ao catálogo.`)
 })
 
@@ -37,10 +34,8 @@ test('Should not insert a new movie with duplicate title', async ({ page, reques
     const username = 'Admin'
 
     await page.login.do(email, password, username)
-    await submitMovie(page, movie)
+    await page.movies.submit(movie)
     await page.popup.haveText(`O título \'${movie.title}\' já consta em nosso catálogo. Por favor, verifique se há necessidade de atualizações ou correções para este item.`)
-
-    console.log('TEST EXECUTED: Should insert a new movie with valid data')
 })
 
 /**
@@ -61,8 +56,6 @@ test('Should not insert a new movie with blank mandatory data', async ({ page })
         'Campo obrigatório',
         'Campo obrigatório']
     await page.alert.haveText(message)
-
-    console.log('TEST EXECUTED: Should not insert a new movie with blank mandatory data')
 })
 
 /**

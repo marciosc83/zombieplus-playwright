@@ -12,8 +12,6 @@ test('Should login successfully with valid credentials', async ({ page }) => {
     await page.login.submit(email, password)
     await page.leads.isLoggedIn('Admin')
     await page.login.logout()
-
-    console.log('TEST EXECUTED: Should login successfully with valid credentials')
 })
 
 /**
@@ -27,8 +25,6 @@ test('Should not login with invalid email', async ({ page }) => {
     await page.login.visit()
     await page.login.submit(email, password)
     await page.alert.haveTextWithLocator('.alert', 'Email incorreto')
-
-    console.log('TEST EXECUTED: Should not login with invalid email')
 })
 
 /**
@@ -44,8 +40,6 @@ test('Should not login with invalid password', async ({ page }) => {
 
     const message = 'Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente.'
     await page.popup.haveText(message)
-
-    console.log('TEST EXECUTED: Should not login with invalid password')
 })
 
 /**
@@ -62,8 +56,6 @@ test('Should not login with blank email', async ({ page }) => {
     const locator = '.alert'
     const message = 'Campo obrigatório'
     await page.alert.haveTextWithLocator(locator, message)
-
-    console.log('TEST EXECUTED: Should not login with blank email')
 })
 
 /**
@@ -80,8 +72,6 @@ test('Should not login with blank password', async ({ page }) => {
     const locator = '.alert'
     const message = 'Campo obrigatório'
     await page.alert.haveTextWithLocator(locator, message)
-
-    console.log('TEST EXECUTED: Should not login with blank password')
 })  
 
 /**
@@ -97,8 +87,6 @@ test('Should not login with blank email and blank password', async ({ page }) =>
 
     const message = ['Campo obrigatório', 'Campo obrigatório']
     await page.alert.haveTextWithRegEx( message)
-
-    console.log('TEST EXECUTED: Should not login with blank email and blank password')
 })  
 
 /**
@@ -114,6 +102,4 @@ test('Should not login with unregistered user', async ({ page }) => {
 
     const message = 'Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente.'
     await page.popup.haveText(message)
-
-    console.log('TEST EXECUTED: Should not login with unregistered user')
 })
